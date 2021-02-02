@@ -3,10 +3,8 @@ from os.path import isfile, join
 import os
 import shutil
 from pathlib import Path
-import time
-import re
-from pathlib import Path
 
+## Ordner erstellen
 def create_dirs(path, dir_names):
     os.chdir(path)
     for name in dir_names:
