@@ -1,46 +1,45 @@
 ---
-Folder:
-  archiv:
-    - dmg
-    - rar
-    - RAR
-    - zip
-    - tar
-    - 7z
-  img:
-    - png
-    - webp
-    - jpeg
-    - jpg
-    - gif
-    - psd
-    - tif
-  pdf:
-    - pdf
-  office:
-    - doc
-    - docx
-    - csv
-    - ppt
-    - pptx
-    - xls
-    - xlsx
-    - one
-    - odt
-    - key
-    - ods
-    - pages
-  code:
-    - r
-    - R
-    - py
-    - js
-    - htm
-    - html
-    - css
-    - bib
-    - tex
-    - c
-    - c++
-    - php
-    - jar
+archiv:
+  - dmg
+  - rar
+  - RAR
+  - zip
+  - tar
+  - 7z
+img:
+  - png
+  - webp
+  - jpeg
+  - jpg
+  - gif
+  - psd
+  - tif
+pdf:
+  - pdf
+office:
+  - doc
+  - docx
+  - csv
+  - ppt
+  - pptx
+  - xls
+  - xlsx
+  - one
+  - odt
+  - key
+  - ods
+  - pages
+code:
+  - r
+  - R
+  - py
+  - js
+  - htm
+  - html
+  - css
+  - bib
+  - tex
+  - c
+  - c++
+  - php
+  - jar
