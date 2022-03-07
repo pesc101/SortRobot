@@ -1,14 +1,13 @@
-import datetime
+import argparse
+import logging
 from os import listdir
 from os.path import isfile, join
 import os
 import shutil
 import re
-import time
-from watchdog.observers import Observer
-from watchdog.events import PatternMatchingEventHandler, FileSystemEventHandler
 import yaml
-
+from classes.watcher import Watcher
+from classes.handler import EventHandler
 
 
 
@@ -66,57 +65,24 @@ def sort_dirs(mypath, dir_names):
         print(src_path + '  >>>  ' + '6_rest')
 
 
-class Watcher:
-
-    def __init__(self, directory, handler):
-        self.observer = Observer()
-        self.handler = handler
-        self.directory = directory
-
-    def run(self, go_recursively):
-        path = "/Users/jan/Downloads/"
-        self.observer.schedule(self.handler, self.directory, recursive=go_recursively)
-        self.observer.start()
-        print("\nWatcher Running in {}/\n".format(self.directory))
-        try:
-            while True:
-                time.sleep(1)
-        except:
-            self.observer.stop()
-        self.observer.join()
-        print("\nWatcher Terminated\n")
-
-
-class EventHandler(PatternMatchingEventHandler):
-
-    def __init__(self, *args, **kwargs):
-        super(EventHandler, self).__init__(*args, **kwargs)
-
-    def get_datetime(self):
-        return datetime.datetime.now().strftime("%H:%M:%S %d-%m-%Y")
-
-    def on_created(self, event):
-        print(f'{self.get_datetime()} CREATED: {event.src_path} created.')
-
-    def on_deleted(self, event):
-        print(f'{self.get_datetime()} DELETED: {event.src_path} deleted.')
-
-    def on_modified(self, event):
-        print(f'{self.get_datetime()} MODIFIED: {event.src_path} has been modified.')
-
-    def on_moved(self, event):
-        print(f'{self.get_datetime()} MOVED: {event.src_path} >> {event.dest_path}.')
-
-
 if __name__ == "__main__":
+
+    # Arg Parser
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--path', help='Insert the path', default='/Users/jan/Downloads')
+    parser.add_argument('--patterns', help='Insert Pattern', default='')
+    args = parser.parse_args()
+
+
+    # Logging
+    logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s', datefmt='%H:%M:%S %d-%m-%Y')
 
     # Import Config
     with open('config.yaml') as f:
         types = yaml.load(f, Loader=yaml.FullLoader)
-    print(types)
 
     # Start Watcher
-    w = Watcher('/Users/jan/Downloads', EventHandler())
+    w = Watcher(args.path, EventHandler())
     w.run(False)
 
     # create_dirs(download_dir, types)
