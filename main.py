@@ -3,15 +3,17 @@ import logging
 import os
 import shutil
 import re
+import re
+import yaml
 import yaml
 from classes.watcher import Watcher
-from classes.handler import EventHandler
+from classes.eventhandler import EventHandler
 
 
 # Ordner erstellen
 def create_dirs(path, type_dict):
-    os.chdir(path)
     [os.mkdir(name) for name in type_dict.keys() if not os.path.isdir(name)]
+    os.chdir(path)
 
 
 # Ordner sortieren
@@ -46,8 +48,8 @@ if __name__ == "__main__":
     create_dirs(args.path, folders)
 
     # Start Watcher
-    w = Watcher(args.path, EventHandler(folders=folders))
+    w = Watcher(args.path, EventHandler(folders=folders, path=args.path))
     w.run(False)
 
     # sort_dirs(download_dir, dirs)
-    print('Done.')
+
