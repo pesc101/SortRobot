@@ -20,15 +20,32 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--path', help='Insert the path', default='/Users/jan/Downloads')
     parser.add_argument('--patterns', help='Insert Pattern', default='')
+    parser.add_argument('-log', '--log', help='Set logging level', default='info')
     args = parser.parse_args()
 
     # Logging
-    logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(message)s', datefmt='%H:%M:%S %d-%m-%Y',
+    levels = {
+        'critical': logging.CRITICAL,
+        'error': logging.ERROR,
+        'warn': logging.WARNING,
+        'warning': logging.WARNING,
+        'info': logging.INFO,
+        'debug': logging.DEBUG
+    }
+    level = levels.get(args.log.lower())
+    if level is None:
+        raise ValueError(
+            f"log level given: {args.log}"
+            f" -- must be one of: {' | '.join(levels.keys())}")
+
+
+    for handler in logging.root.handlers[:]:
+        logging.root.removeHandler(handler)
+    logging.basicConfig(level=level, format='%(asctime)s - %(message)s', datefmt='%H:%M:%S %d-%m-%Y',
                         handlers=[
                             logging.FileHandler("logs.log"),
                             logging.StreamHandler()
                         ])
-
     # Import Config
     with open(os.path.dirname(__file__) + '/config.yaml') as f:
         folders = yaml.load(f, Loader=yaml.FullLoader)
