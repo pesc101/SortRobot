@@ -41,7 +41,6 @@ class FileHandler:
                 if os.path.exists(desc_path):
                     desc_path = self.get_next_file(folder)
                 shutil.move(self.path, desc_path)
-                print(f'{self.path} >>> {desc_path}')
                 return
 
         # Rest Folder
@@ -49,4 +48,3 @@ class FileHandler:
         if os.path.exists(desc_path):
             desc_path = self.get_next_file(self.rest_folder)
         shutil.move(self.path, desc_path)
-        print(f'{self.path} >>> {desc_path}')
