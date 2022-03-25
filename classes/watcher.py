@@ -1,3 +1,4 @@
+import os
 import time
 from watchdog.observers import Observer
 import logging
@@ -20,4 +21,4 @@ class Watcher:
         except KeyboardInterrupt:
             self.observer.stop()
         self.observer.join()
-        logging.warning("\nWatcher Terminated\n\n")
+        logging.warning("Watcher Terminated\n\n")
