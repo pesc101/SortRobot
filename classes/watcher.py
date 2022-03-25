@@ -1,4 +1,3 @@
-import os
 import time
 from watchdog.observers import Observer
 import logging
@@ -15,9 +14,13 @@ class Watcher:
         self.observer.schedule(self.handler, self.directory, recursive=go_recursively)
         self.observer.start()
         logging.info(f'Watcher Running in {self.directory}')
+        i = 0
         try:
             while True:
                 time.sleep(1)
+                i = i + 1
+                if i % 20 == 0:
+                    logging.info('Still running strong!')
         except KeyboardInterrupt:
             self.observer.stop()
         self.observer.join()

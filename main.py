@@ -38,12 +38,12 @@ if __name__ == "__main__":
             f"log level given: {args.log}"
             f" -- must be one of: {' | '.join(levels.keys())}")
 
-
     for handler in logging.root.handlers[:]:
         logging.root.removeHandler(handler)
+
     logging.basicConfig(level=level, format='%(asctime)s - %(message)s', datefmt='%H:%M:%S %d-%m-%Y',
                         handlers=[
-                            logging.FileHandler("logs.log"),
+                            logging.FileHandler("logs/logs.log"),
                             logging.StreamHandler()
                         ])
     # Import Config

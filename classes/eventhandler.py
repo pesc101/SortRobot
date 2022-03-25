@@ -3,8 +3,7 @@ import logging
 import re
 
 from watchdog.events import PatternMatchingEventHandler
-from classes.filehandler import FileHandler
-from classes.folderhandler import FolderHandler
+from classes.sortinghandler import FileHandler, FolderHandler
 
 
 def get_datetime():
