@@ -28,9 +28,9 @@ class EventHandler(PatternMatchingEventHandler):
     def on_modified(self, event):
         if re.match('.*\\.DS_Store$', event.src_path):
             logging.info('DS_Store will be ignored')
-            return
-        FolderHandler(event.src_path).sort_dir(folders=self.folders)
-        logging.info(f'{get_datetime()} MODIFIED: {event.src_path} modified.')
+        else:
+            FolderHandler(event.src_path).sort_dir(folders=self.folders)
+            logging.info(f'{get_datetime()} MODIFIED: {event.src_path} modified.')
 
     def on_moved(self, event):
         logging.info(f'{get_datetime()} MOVED: {event.src_path} >> {event.dest_path}.')
