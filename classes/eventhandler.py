@@ -1,4 +1,5 @@
 import datetime
+import logging
 import re
 
 from watchdog.events import PatternMatchingEventHandler
@@ -19,17 +20,17 @@ class EventHandler(PatternMatchingEventHandler):
 
     def on_created(self, event):
         FileHandler(event.src_path).sort_file(folders=self.folders)
-        print(f'{get_datetime()} CREATED: {event.src_path} created.')
+        logging.info(f'{get_datetime()} CREATED: {event.src_path} created.')
 
     def on_deleted(self, event):
-        print(f'{get_datetime()} DELETED: {event.src_path} deleted.')
+        logging.info(f'{get_datetime()} DELETED: {event.src_path} deleted.')
 
     def on_modified(self, event):
         if re.match('.*\\.DS_Store$', event.src_path):
-            print('DS_Store will be ignored')
+            logging.info('DS_Store will be ignored')
             return
         FolderHandler(event.src_path).sort_dir(folders=self.folders)
-        print(f'{get_datetime()} MODIFIED: {event.src_path} modified.')
+        logging.info(f'{get_datetime()} MODIFIED: {event.src_path} modified.')
 
     def on_moved(self, event):
-        print(f'{get_datetime()} MOVED: {event.src_path} >> {event.dest_path}.')
+        logging.info(f'{get_datetime()} MOVED: {event.src_path} >> {event.dest_path}.')

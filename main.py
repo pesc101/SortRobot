@@ -1,19 +1,17 @@
 import argparse
-import logging
 import os
-import shutil
-import re
-import re
-import yaml
 import yaml
 from classes.watcher import Watcher
 from classes.eventhandler import EventHandler
+import coloredlogs
+import logging
+coloredlogs.install()
 
 
 # Ordner erstellen
 def create_dirs(path, type_dict):
-    [os.mkdir(name) for name in type_dict.keys() if not os.path.isdir(name)]
     os.chdir(path)
+    [os.mkdir(name) for name in type_dict.keys() if not os.path.isdir(name)]
 
 
 if __name__ == "__main__":
@@ -25,7 +23,11 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     # Logging
-    logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s', datefmt='%H:%M:%S %d-%m-%Y')
+    logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(message)s', datefmt='%H:%M:%S %d-%m-%Y',
+                        handlers=[
+                            logging.FileHandler("logs.log"),
+                            logging.StreamHandler()
+                        ])
 
     # Import Config
     with open(os.path.dirname(__file__) + '/config.yaml') as f:
@@ -38,5 +40,4 @@ if __name__ == "__main__":
     w = Watcher(args.path, EventHandler(folders=folders, path=args.path))
     w.run(False)
 
-    # sort_dirs(download_dir, dirs)
 

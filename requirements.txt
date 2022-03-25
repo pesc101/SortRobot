@@ -51,3 +51,5 @@ uvicorn==0.17.5
 watchdog==2.1.6
 watchdogs==1.8.8
 yarl==1.7.2
+
+coloredlogs~=15.0.1
