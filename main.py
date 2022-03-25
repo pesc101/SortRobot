@@ -16,19 +16,6 @@ def create_dirs(path, type_dict):
     os.chdir(path)
 
 
-# Ordner sortieren
-def sort_dirs(mypath, dir_names):
-    dirs = [f for f in next(os.walk(mypath))[1] if not re.search(r"^\d_", f)]
-    if len(dirs) == 0:
-        return print('No new Dirs in Download Dir')
-
-    for dir in dirs:
-        src_path = mypath + dir
-        dest_path = mypath + dir_names[6]
-        shutil.move(src_path, dest_path)
-        print(src_path + '  >>>  ' + '6_rest')
-
-
 if __name__ == "__main__":
 
     # Arg Parser
@@ -41,7 +28,7 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s', datefmt='%H:%M:%S %d-%m-%Y')
 
     # Import Config
-    with open('config.yaml') as f:
+    with open(os.path.dirname(__file__) + '/config.yaml') as f:
         folders = yaml.load(f, Loader=yaml.FullLoader)
 
     # Create dirs if not existing
