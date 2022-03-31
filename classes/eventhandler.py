@@ -3,6 +3,7 @@ import logging
 import re
 
 from watchdog.events import PatternMatchingEventHandler
+
 from classes.sortinghandler import FileHandler, FolderHandler
 
 

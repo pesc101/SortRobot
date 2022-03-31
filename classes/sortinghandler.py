@@ -70,23 +70,15 @@ class FolderHandler(SortingHandler):
         for dir in dirs:
             src_path = os.path.join(self.path, dir)
             dest_path = os.path.join(self.path, self.rest_folder)
-            print(os.path.join(self.path, self.rest_folder, dir))
-            if os.path.exists(os.path.join(self.path, self.rest_folder, dir)):
-                dest_path = self.get_next_folder(dir)
+            if os.path.exists(os.path.join(dest_path, dir)):
+                dest_path = self.get_next_folder(dest_path, dir)
             shutil.move(src_path, dest_path)
             logging.info(f'{src_path} >> {dest_path}')
 
-    ## TODO Fixing get_next_folder
-    def get_next_folder(self, folder):
-        dest = os.path.join(self.folder_path, folder)
-        while os.path.exists(os.path.join(dest, self.name)):
+    def get_next_folder(self, dest_path: str, dir: str):
+        dest_path = os.path.join(dest_path, dir)
+        while os.path.exists(dest_path):
             self.num += 1
-
-            period = self.name.rfind('.')
-            if period == -1:
-                period = len(self.name)
-
-            new_file = f'{self.name[:period]}_{self.num}{self.name[period:]}'
-            dest = os.path.join(dest, new_file)
-        return dest
-
+            new_folder = f'{dest_path}_{self.num}'
+            dest_path = os.path.join(dest_path, new_folder)
+        return dest_path
