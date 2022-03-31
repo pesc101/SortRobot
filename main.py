@@ -1,10 +1,13 @@
 import argparse
-import os
-import yaml
-from classes.watcher import Watcher
-from classes.eventhandler import EventHandler
-import coloredlogs
 import logging
+import os
+
+import coloredlogs
+import yaml
+
+from classes.eventhandler import EventHandler
+from classes.watcher import Watcher
+
 coloredlogs.install()
 
 
@@ -56,5 +59,3 @@ if __name__ == "__main__":
     # Start Watcher
     w = Watcher(args.path, EventHandler(folders=folders, path=args.path))
     w.run(False)
-
-

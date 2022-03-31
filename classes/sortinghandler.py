@@ -1,7 +1,7 @@
 import logging
 import os
-import shutil
 import re
+import shutil
 
 
 class SortingHandler:
@@ -57,6 +57,7 @@ class FileHandler(SortingHandler):
             desc_path = self.get_next_file(self.rest_folder)
         shutil.move(self.path, desc_path)
 
+
 class FolderHandler(SortingHandler):
 
     def __init__(self, path):
@@ -74,7 +75,6 @@ class FolderHandler(SortingHandler):
                 dest_path = self.get_next_folder(dir)
             shutil.move(src_path, dest_path)
             logging.info(f'{src_path} >> {dest_path}')
-
 
     ## TODO Fixing get_next_folder
     def get_next_folder(self, folder):
